@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIMAMIA - Himpunan Mahasiswa Kimia FMIPA UNNES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(15, 23, 43, 0.9), rgba(15, 23, 43, 0.9)), 
+                        url('') center/cover no-repeat;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .event-card {
+            transition: all 0.3s ease;
+        }
+        
+        .divisi-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+         .blue-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .blue-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Custom font style for heading similar to the screenshot */
+    .custom-heading {
+      font-family: 'Georgia', serif;
+      font-weight: 900;
+      font-size: 2.25rem; /* 36px */
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    /* The golden horizontal line */
+    .gold-line {
+      border-bottom: 3px solid #1826be;
+      width: 14rem; /* same width as text roughly */
+      margin-top: 0.25rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Card shadow and border radius */
+    .card-shadow {
+      box-shadow: 0 8px 16px rgb(0 0 0 / 0.05);
+      border-radius: 0.75rem; /* rounded-lg */
+      background-color: white;
+    }
+
+    /* Button style similar to screenshot */
+    .btn-outline {
+      border: 1px solid #000;
+      padding: 0.4rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      background-color: transparent;
+      transition: background-color 0.3s, color 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Arrow icon with subtle stroke for button */
+    .btn-arrow {
+      stroke-width: 2;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Text styles in card */
+    .card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .card-desc {
+      font-size: 0.75rem;
+      color: #333;
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* For consistent spacing from top */
+    body {
+      background-color: #f8fafc;
+    }
+
+    .popup {
+    display: none; 
+    position: fixed; 
+    z-index: 999; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9); 
+}
+
+.popup-content {
+    margin: auto;
+    display: block;
+    width: 80%; 
+    max-width: 700px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Popup FENOL */
+      /* Overlay latar belakang */
+    #popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    /* Kontainer popup */
+    #popup {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      animation: zoomIn 0.5s ease-out;
+      width: 90%;
+      max-width: 420px; /* Lebar maksimum A5 */
+      aspect-ratio: 1 / 1.414; /* Rasio A5 tetap sama dengan A4 */
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    #popup:hover {
+      transform: scale(1);
+    }
+
+    /* Gambar */
+    #popup img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 16px;
+    }
+
+    /* Tombol close */
+    #close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 20px;
+      border: none;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 10;
+    }
+
+    #close-btn:hover {
+      background-color: rgba(255, 0, 0, 0.7);
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Navigation -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="image/Logo Himamia.png" alt="Logo HIMAMIA bergambar ikon kimia dengan warna biru dan putih" class="h-10 w-10 rounded-full">
+                        <span class="ml-3 text-xl font-bold text-blue-600">HIMAMIA FMIPA UNNES</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="px-3 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition">Beranda</a>
+                        <a href="#tentang" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition">Tentang</a>
+                        <a href="#agenda" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition">Agenda</a>
+                        <a href="#berita" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition">Berita</a>
+                        <a href="#galeri" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition">Galeri</a>
+                        <a href="#kontak" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition">Kontak</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-blue-600">Beranda</a>
+                <a href="#tentang" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600">Tentang</a>
+                <a href="#agenda" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600">Agenda</a>
+                <a href="#berita" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600">Berita</a>
+                <a href="#galeri" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600">Galeri</a>
+                <a href="#kontak" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600">Kontak</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero text-white pt-24 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Himpunan Mahasiswa <span class="gradient-text">Kimia</span></h1>
+                    <p class="text-xl mb-8 opacity-90">Mewadahi, Menginspirasi, dan Meningkatkan Potensi Mahasiswa Kimia menuju Generasi Unggul dan Berkarakter</p>
+                    <div class="flex space-x-4">
+                        <a href="#tentang" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 transform hover:scale-105">Tentang Kami</a>
+                        <a href="#agenda" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium transition duration-300 hover:bg-white hover:text-blue-600">Agenda Terbaru</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="image/Logo Himamia.png" alt="Kelompok mahasiswa kimia melakukan eksperimen di laboratorium dengan alat gelas" class="rounded-xl shadow-2xl border-4 border-white w-64 h-64 object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pengumuman Section -->
+    <section class="bg-blue-50 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-xl shadow-md p-6 flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="bg-blue-100 p-3 rounded-full mr-4">
+                        <i class="fas fa-bullhorn text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Pendaftaran LKTI-MAHASISWA | LKTI-SISWA | OKINES</h3>
+                        <ul class="text-gray-600 list-disc pl-5">
+                            <li>Dapatkan diskon 15% untuk mahasiswa Kimia FMIPA UNNES</li>
+                            <li>Diskon 10% untuk mahasiswa UNNES</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <a href="https://fenol.id/" class="text-blue-600 hover:text-blue-800 font-medium">Selengkapnya →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang HIMAMIA Section -->
+    <section id="tentang" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Selayang Pandang Himamia FMIPA UNNES</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Sejarah Singkat</h3>
+                    <p class="text-gray-700 mb-4"></p>
+                        Himamia FMIPA UNNES adalah lembaga eksekutif mahasiswa tingkat rumpun ilmu di lingkungan FMIPA UNNES yang memiliki visi untuk mewujudkan Himamia FMIPA UNNES yang memiliki peran aktif sebagai agent of change serta sebagai wadah internalisasi bagi Mahasiswa Rumpun Ilmu Kimia dengan berorientasi pada Himamia yang kolaboratif, inovatif, dan adaptif.
+                    </p>
+                    <p class="text-gray-700 mb-2">Selain itu, Himamia FMIPA UNNES juga memiliki beberapa misi yaitu:</p>
+                    <ol class="list-decimal pl-6 text-gray-700 space-y-1">
+                        <li>Mendorong keaktifan organisasi dan kerja sama antar anggota.</li>
+                        <li>Meningkatkan kreativitas dan prestasi akademik anggota.</li>
+                        <li>Meningkatkan peran Himamia sebagai organisasi dalam mewujudkan organisator yang berintegritas.</li>
+                        <li>Menciptakan hubungan harmonis dengan pihak internal dan eksternal Himamia.</li>
+                    </ol>
+                </div>
+                <div>
+                    <img src="image/sejarahsingkatfoto.JPG" alt="Foto dokumentasi sejarah pendirian HIMAMIA dengan para pendiri mengenakan jas laboratorium" class="rounded-xl shadow-lg w-full">
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="bg-blue-50 p-8 rounded-xl text-center hover:bg-blue-100 transition duration-300 card-hover">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-eye text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Visi</h3>
+                    <p class="text-gray-600">Mewujudkan Himamia yang memiliki peran aktif
+sebagai agent of change serta sebagai wadah
+internalisasi bagi mahasiswa Kimia dengan
+berorientasi pada Himamia yang kolaboratif, inovatif,
+dan adaptif.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-8 rounded-xl text-center hover:bg-blue-100 transition duration-300 card-hover">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bullseye text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Misi</h3>
+                    <ul class="text-gray-600 list-disc list-inside text-left inline-block text-base space-y-1">
+                        <li>Mendorong keaktifan organisasi dan kerja sama antar anggota.</li>
+                        <li>Meningkatkan kreativitas dan prestasi akademik anggota.</li>
+                        <li>Meningkatkan peran Himamia sebagai organisasi dalam mewujudkan organisator yang berintegritas.</li>
+                        <li>Menciptakan hubungan harmonis dengan pihak internal dan eksternal Himamia.</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-blue-50 p-8 rounded-xl text-center hover:bg-blue-100 transition duration-300 card-hover">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-atom text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Nilai-Nilai</h3>
+                    <p class="text-gray-600">Integritas, Kolaborasi, Inovasi, Kepedulian, dan Keunggulan menjadi fondasi dalam setiap kegiatan kami.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Struktur Organisasi Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Struktur Organisasi Himamia FMIPA UNNES</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="flex justify-center">
+                <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-4xl">
+                    <div class="overflow-auto" style="max-width:100%; max-height:600px;">
+                        <img 
+                            id="zoomable-img"
+                            src="image/STO Himamia.png" 
+                            alt="Diagram struktur organisasi HIMAMIA dengan alur hierarki kepengurusan" 
+                            class="w-full cursor-zoom-in transition-transform duration-200"
+                            style="transform: scale(1);"
+                        >
+                    </div>
+                    <div class="flex justify-center mt-4 gap-2">
+                        <button id="zoom-in" class="btn-outline" aria-label="Zoom In"><i class="fas fa-search-plus"></i></button>
+                        <button id="zoom-out" class="btn-outline" aria-label="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                        <button id="zoom-reset" class="btn-outline" aria-label="Reset Zoom"><i class="fas fa-compress"></i></button>
+                    </div>
+                </div>
+            </div>
+            <script>
+            (function() {
+                const img = document.getElementById('zoomable-img');
+                const zoomInBtn = document.getElementById('zoom-in');
+                const zoomOutBtn = document.getElementById('zoom-out');
+                const zoomResetBtn = document.getElementById('zoom-reset');
+                let scale = 1;
+                const minScale = 0.5;
+                const maxScale = 3;
+                const step = 0.2;
+
+                function updateZoom() {
+                    img.style.transform = `scale(${scale})`;
+                }
+
+                zoomInBtn.onclick = function() {
+                    if (scale < maxScale) {
+                        scale += step;
+                        if (scale > maxScale) scale = maxScale;
+                        updateZoom();
+                    }
+                };
+                zoomOutBtn.onclick = function() {
+                    if (scale > minScale) {
+                        scale -= step;
+                        if (scale < minScale) scale = minScale;
+                        updateZoom();
+                    }
+                };
+                zoomResetBtn.onclick = function() {
+                    scale = 1;
+                    updateZoom();
+                };
+
+                // Optional: Zoom with mouse wheel (Ctrl+wheel)
+                img.parentElement.addEventListener('wheel', function(e) {
+                    if (e.ctrlKey) {
+                        e.preventDefault();
+                        if (e.deltaY < 0) {
+                            zoomInBtn.click();
+                        } else {
+                            zoomOutBtn.click();
+                        }
+                    }
+                });
+            })();
+            </script>
+ <!-- Underbow Himamia 2025 -->
+    <header>
+    <h1 class="custom-heading"><i>Underbow</i> Himamia</h1>
+    <div class="gold-line"></div>
+  </header>
+
+  <main>
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- INSPECTRA Card -->
+      <article class="card-shadow p-8 flex flex-col items-center text-center">
+        <img 
+          src="image/LOGO KIK.png" 
+          alt="Logo INSPECTRA dengan desain warna ungu, hijau dan pink dengan bentuk melingkar abstrak" 
+          class="mb-6 max-h-40 w-auto object-contain" 
+          onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d3621856-8557-4942-bf31-cd2794bd82c6.png';"
+        />
+        <h2 class="card-title w-full text-center">Kelompok Ilmiah Kimia (KIK)</h2>
+        <p class="card-desc w-full text-justify">
+        Kelompok Ilmiah Kimia (KIK) merupakan UNDERBOW (UB) Himpunan
+        Mahasiswa Kimia FMIPA Universitas Negeri Semarang yang berfokus pada
+        bidang keilmiahan di jurusan kimia. KIK merupakan sebuah wadah mahasiswa
+        jurusan kimia dalam mengembangkan potensi terutama di bidang keilmiahan,
+        menyalurkan sebuah karya, dan memperbanyak pengalaman serta relasi.
+        </p>
+      </article>
+
+      <!-- CHRONICS Card -->
+      <article class="card-shadow p-8 flex flex-col items-center text-center">
+        <img 
+          src="image/LOGO SKI.png" 
+          alt="Logo CHRONICS berbentuk bulatan jam dengan warna biru tua, emas, dan putih dengan elemen jam pasir" 
+          class="mb-6 max-h-40 w-auto object-contain" 
+          onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=Logo+Tidak+Tersedia';"
+        />
+        <h2 class="card-title w-full text-center">Sie Kerohanian Islam (SKI) </h2>
+        <p class="card-desc w-full text-justify">
+Sie Kerohanian Islam (SKI) Himamia FMIPA UNNES adalah lembaga dakwah kampus yang berdiri sejak 1998. Berlandaskan Al-Qur'an dan Hadis, SKI berkomitmen membentuk civitas akademika Rumpun Ilmu Kimia yang islami, edukatif, dan berwawasan konservasi. SKI menjadi wadah mahasiswa muslim untuk meningkatkan keimanan, keilmuan, dan akhlak mulia melalui berbagai program seperti kajian, pelatihan dakwah, pengabdian masyarakat, dan kegiatan sosial. Semangatnya tercermin dalam semboyan "إلى العزة (Menuju Kemuliaan)" sebagai visi membentuk pribadi yang mulia.
+        </p>
+      
+      </article>
+
+      <!-- IEC Card -->
+      <article class="card-shadow p-8 flex flex-col items-center text-center">
+        <img 
+          src="image/LOGO CHEVENT.png" 
+          alt="Logo IEC Industrial Engineering Student Catalyst dengan warna hijau, biru dan hitam membentuk panah abstrak" 
+          class="mb-6 max-h-40 w-auto object-contain" 
+          onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=Logo+Tidak+Tersedia';"
+        />
+        <h2 class="card-title w-full text-center">Chemistry Advanture Team (Chevent) </h2>
+        <p class="card-desc w-full text-justify">
+Chevent (Chemistry Adventure Team) adalah unit di bawah Himamia FMIPA UNNES yang berdiri pada 20 Agustus 2004. Berawal dari sekelompok mahasiswa Rumpun Ilmu Kimia yang memiliki minat terhadap alam bebas, Chevent hadir sebagai wadah pengembangan diri di bidang kepecintaalaman dan kegiatan outdoor. Melalui aktivitas edukatif, eksploratif, dan konservatif, Chevent membentuk karakter mahasiswa yang tangguh, peduli, dan cinta lingkungan.
+        </p>
+     
+      </article>
+
+       <!-- IEC Card -->
+      <article class="card-shadow p-8 flex flex-col items-center text-center">
+        <img 
+          src="image/LOGO CCC.png" 
+          alt="Logo IEC Industrial Engineering Student Catalyst dengan warna hijau, biru dan hitam membentuk panah abstrak" 
+          class="mb-6 max-h-40 w-auto object-contain" 
+          onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=Logo+Tidak+Tersedia';"
+        />
+        <h2 class="card-title w-full text-center">Chemistry Creative Crew (CCC) </h2>
+        <p class="card-desc w-full text-justify">
+Tripel C (Chemistry Creative Crew) adalah underbow Himamia FMIPA UNNES yang menjadi wadah kreativitas dan kolaborasi mahasiswa dalam menjawab tantangan era digital, khususnya di bidang pembelajaran kimia. Berdiri sebagai respons terhadap kebutuhan inovasi pendidikan, Tripel C memfasilitasi produksi konten edukatif dan pengembangan media berbasis teknologi.
+Tripel C memiliki dua divisi:
+• SmartClass Room – fokus pada konten digital seperti podcast, video, dan dokumentasi.
+• Fablab – berfokus pada rekayasa media pembelajaran dengan teknologi seperti 3D printing dan mikrokontroler.
+Tripel C hadir sebagai integrasi antara kreativitas, teknologi, dan kimia untuk mendukung pendidikan di kampus dan masyarakat.        </p>
+      
+      </article>
+
+    </section>
+  </main>
+
+
+    <!-- Agenda & Kegiatan Section -->
+    <section id="agenda" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Agenda & Kegiatan</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Jadwal kegiatan dan acara HIMAMIA yang akan datang, serta dokumentasi kegiatan sebelumnya</p>
+            </div>
+            
+            <div class="mb-16">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Kegiatan Mendatang</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Event 1 -->
+                    <div class="bg-blue-50 rounded-xl overflow-hidden shadow-md event-card hover:shadow-lg transition duration-300">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="image/kegiatan (1).JPG" alt="Poster Seminar Nasional Kimia 2023 dengan tema inovasi terbaru" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">KOMPETISI</div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <i class="far fa-calendar mr-2"></i>
+                                <span>Saat Ini</span>
+                                <i class="far fa-clock ml-4 mr-2"></i>
+                                <span>Pendaftaran Gelombang 3</span>
+                            </div>
+                            <h4 class="font-bold text-xl text-gray-800 mb-2">Festival Ilmiah & Kompetisi Kimia Nasional | FENOL</h4>
+<p class="text-gray-600 mb-4">
+  Ajang tahunan yang mempertemukan para talenta muda melalui kompetisi kimia (OKINES) dan karya tulis ilmiah (LKTI-M & LKTI-S).</p>
+                            <a href="https://fenol.id/" class="text-blue-600 font-medium inline-flex items-center">
+                                Pendaftaran FENOL 2025<i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Event 2 -->
+                    <div class="bg-blue-50 rounded-xl overflow-hidden shadow-md event-card hover:shadow-lg transition duration-300">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="image/kegiatan (2).JPG" alt="Mahasiswa melakukan praktikum di laboratorium penelitian" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">Mahasiswa Baru</div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <i class="far fa-calendar mr-2"></i>
+                                <span>27 Agustus 2025</span>
+                            </div>
+                            <h4 class="font-bold text-xl text-gray-800 mb-2">Opening Stronsium</h4>
+                            <p class="text-gray-600 mb-4">Pengenalan mahasiswa baru terhadap rumpun ilmu kimia</p>
+                            <!-- <a href="#" class="text-blue-600 font-medium inline-flex items-center">
+                                Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                    
+                   
+                    </div>
+                </div>
+                
+                <!-- Lihat Semua Agenda -->
+                <!--
+                <div class="mt-8 text-center">
+                    <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                        Lihat Semua Agenda <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                -->
+            </div>
+            
+            <!-- Documentation Section 
+
+            <div>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Dokumentasi Kegiatan</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="#" class="group relative block overflow-hidden rounded-lg">
+                        <img src="https://placehold.co/400x300" alt="Workshop penulisan karya ilmiah mahasiswa kimia dengan dosen pembimbing" class="w-full h-48 object-cover transition duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <div>
+                                <h4 class="text-white font-semibold">Workshop KTI 2023</h4>
+                                <p class="text-sm text-white/80">12 Sept 2023</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="group relative block overflow-hidden rounded-lg">
+                        <img src="https://placehold.co/400x300" alt="Peserta lomba cerdas cermat kimia antarkampus di auditorium" class="w-full h-48 object-cover transition duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <div>
+                                <h4 class="text-white font-semibold">Cerdas Cermat Kimia</h4>
+                                <p class="text-sm text-white/80">28 Agt 2023</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="group relative block overflow-hidden rounded-lg">
+                        <img src="https://placehold.co/400x300" alt="Kunjungan industri ke pabrik bahan kimia dengan peserta mengenakan APD" class="w-full h-48 object-cover transition duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <div>
+                                <h4 class="text-white font-semibold">Kunjungan Industri</h4>
+                                <p class="text-sm text-white/80">15 Agt 2023</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="group relative block overflow-hidden rounded-lg">
+                        <img src="https://placehold.co/400x300" alt="Bakti sosial mahasiswa kimia membersihkan pantai bersama masyarakat" class="w-full h-48 object-cover transition duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <div>
+                                <h4 class="text-white font-semibold">Bakti Sosial</h4>
+                                <p class="text-sm text-white/80">5 Agt 2023</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+-->  
+
+    <!-- Berita & Informasi Section -->
+    <section id="berita" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Berita & Informasi</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Informasi terbaru seputar akademik, non-akademik, dan perkembangan dunia kimia</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <!-- Featured News -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:flex-shrink-0 md:w-1/2">
+                            <img src="image/berita1.jpg" alt="Peneliti muda kimia mempresentasikan hasil penelitian di konferensi internasional" class="h-full w-full object-cover">
+                        </div>
+                        <div class="p-8 md:w-1/2">
+                            <div class="uppercase tracking-wide text-sm text-blue-600 font-semibold mb-1">Prestasi</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Mahasiswa Kimia dan Pend Kimia Raih Medali Silver dan Perunggu pada Kompetisi Internasional SEED 2025 Bidang Capstone Design</h3>
+                            <p class="mt-3 text-gray-600 mb-4">Tim Mahasiswa Kimia dan Pend Kimia berhasil meraih medali silver dan perunggu dalam kompetisi Internasional...</p>
+                            <div class="flex items-center mt-4">
+                                <!-- <span class="text-sm text-gray-500">2 hari lalu</span> -->
+                                <a href="berita1.html" class="ml-auto text-blue-600 hover:text-blue-800 text-sm font-medium">Baca selengkapnya →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- News List -->
+                <div>
+                    <!-- News Item 1 -->
+              <!--
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6 hover:shadow-lg transition duration-300">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <img src="https://placehold.co/100x100" alt="Ikon beasiswa bergambar uang dan bangku kuliah" class="h-16 w-16 rounded-lg">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-gray-800 mb-1">Pembukaan Beasiswa Kimia 2023-2024</h3>
+                                <p class="text-gray-600 text-sm mb-2">Pendaftaran beasiswa untuk mahasiswa kimia berprestasi dibuka hingga 30 November 2023.</p>
+                                <div class="flex items-center text-xs text-gray-500">
+                                    <span>5 hari lalu</span>
+                                    <span class="mx-2">•</span>
+                                    <span>Beasiswa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <!-- News Item 2 -->
+                    <!--
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6 hover:shadow-lg transition duration-300">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <img src="https://placehold.co/100x100" alt="Ikon webinar dengan gambar layar komputer dan orang presentasi" class="h-16 w-16 rounded-lg">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-gray-800 mb-1">Webinar Karir Lulusan Kimia</h3>
+                                <p class="text-gray-600 text-sm mb-2">Panduan karir untuk lulusan kimia di berbagai sektor industri dan penelitian.</p>
+                                <div class="flex items-center text-xs text-gray-500">
+                                    <span>1 minggu lalu</span>
+                                    <span class="mx-2">•</span>
+                                    <span>Webinar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <!-- News Item 3 -->
+                     <!-- 
+                    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <img src="https://placehold.co/100x100" alt="Ikon penelitian dengan gambar mikroskop dan tabung reaksi" class="h-16 w-16 rounded-lg">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-gray-800 mb-1">Call for Paper Jurnal Kimia Muda</h3>
+                                <p class="text-gray-600 text-sm mb-2">HIMAMIA membuka kesempatan publikasi karya tulis ilmiah di jurnal mahasiswa.</p>
+                                <div class="flex items-center text-xs text-gray-500">
+                                    <span>2 minggu lalu</span>
+                                    <span class="mx-2">•</span>
+                                    <span>Akademik</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+            
+            <div class="text-center mt-8">
+                <a href="berita.html" class="inline-block border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                    Lihat Semua Berita <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Galeri Section 
+    <section id="galeri" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Galeri Dokumentasi</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Kumpulan momen berharga dari berbagai kegiatan HIMAMIA</p>
+            </div>
+            
+            <div class="mb-8 flex justify-center">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button type="button" class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">
+                        Semua
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border-t border-b border-gray-200">
+                        Seminar
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border-t border-b border-gray-200">
+                        Pelatihan
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border-t border-b border-gray-200">
+                        Lomba
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium rounded-r-lg text-gray-700 bg-white border border-gray-200">
+                        Lainnya
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Peserta workshop kimia analitik sedang melakukan praktik lab dengan pipet" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Sesi foto bersama setelah pelantikan pengurus baru HIMAMIA 2023" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Pameran poster penelitian mahasiswa kimia di auditorium kampus" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Tim cerdas cermat kimia HIMAMIA membawa piala juara" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Diskusi panel dengan ahli kimia industri di seminar tahunan" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Kegiatan outbound anggota baru HIMAMIA di alam terbuka" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Demonstrasi eksperimen kimia untuk siswa SMA dalam sosialisasi kampus" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="group relative block overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300" alt="Kunjungan edukatif ke pabrik kimia dengan safety briefing awal" class="w-full h-64 object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-search text-blue-600"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                    Lihat Semua Foto <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    -->
+    <!-- Pusat Unduhan Section -->
+    <section id="unduhan" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Pusat Unduhan</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Kumpulan dokumen penting dan template untuk kebutuhan organisasi</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Dokumen 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800 mb-1">AD/ART HIMAMIA</h3>
+                            <p class="text-gray-600 text-sm mb-3">Anggaran Dasar dan Anggaran Rumah Tangga HIMAMIA FMIPA UNNES PERIODE 2025</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <span>PDF</span>
+                                <span class="mx-2">•</span>
+                                <!-- <span>250 KB</span> -->
+                            </div>
+                            <a href="https://drive.google.com/file/d/1A5tcLJufGLwxI9TBzeZe3rEkl-SuYWEM/view?usp=drive_link" class="mt-3 inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lihat disini <i class="fas fa-download ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dokumen 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-file-word text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800 mb-1">Mekanisme Pendanaan Cover Biaya Pendaftaran Lomba </h3>
+                            <p class="text-gray-600 text-sm mb-3">Pendataan dan Pendanaan Cover Biaya Pendaftaran Lomba Mahasiswa Rumpun Ilmu Kimia</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <span>DOCX</span>
+                                <span class="mx-2">•</span>
+                                <span>180 KB</span>
+                            </div>
+                            <a href="https://mailunnesacid-my.sharepoint.com/:w:/g/personal/ardhafriansyah_students_unnes_ac_id/Edl-Btvmgv9Bhd5NrbdM0IgBsE2xvkY4mkxoYNLrvjU7BA?e=VusKpp" class="mt-3 inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lihat disini <i class="fas fa-download ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dokumen 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="fas fa-file-word text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800 mb-1">Formulir Pendaftaran Anggota</h3>
+                            <p class="text-gray-600 text-sm mb-3">Formulir untuk pendaftaran anggota baru</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <span>DOCX</span>
+                                <span class="mx-2">•</span>
+                                <!-- <span>150 KB</span> -->
+                            </div>
+                            <a href="#" class="mt-3 inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Lihat disini <i class="fas fa-download ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+    <div id="imagePopup" class="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <img class="popup-content" id="popupImg" src="URL_GAMBAR" alt="Pop-up Image">
+    <div class="caption" id="caption">Deskripsi gambar di sini</div>
+</div>
+
+<!-- Popup FENOL -->
+  <!-- Popup -->
+  <div id="popup-overlay">
+    <div id="popup">
+      <button id="close-btn">&times;</button>
+      <img src="image/popup1.jpg" alt="Poster FENOL 2025">
+    </div>
+  </div>
+
+ <script>
+    // Tampilkan popup jika belum pernah dilihat
+   window.addEventListener('DOMContentLoaded', () => {
+      const hasSeenPopup = localStorage.getItem('popupFenolShown');
+
+      if (!hasSeenPopup) {
+        document.getElementById('popup-overlay').style.display = 'flex';
+      }
+
+      document.getElementById('close-btn').addEventListener('click', () => {
+        document.getElementById('popup-overlay').style.display = 'none';
+        localStorage.setItem('popupFenolShown', 'true');
+      });
+    });
+  </script>
+
+</body>
+</html>
+                
+               
+                
+               
+                

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>News Article - Master of Science Education Study Program</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      background: #fff;
+      padding: 0 15px 50px 15px;
+    }
+    a {
+      text-decoration: none;
+      color: #0366d6;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #023e8a;
+    }
+    /* Container max width and center */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    /* Header area: date and title on grey background */
+    .header-area {
+      background-color: #113F67;
+      color: white;
+      padding: 30px 20px 40px 20px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+      border-radius: 0 0 8px 8px;
+      margin-bottom: 20px;
+    }
+    .date-block {
+      min-width: 70px;
+      text-align: center;
+      font-weight: 500;
+      user-select: none;
+    }
+    .date-block .day {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .date-block .month {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .title-block {
+      flex: 1;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1.3;
+    }
+    /* Meta info below */
+    .meta-info {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 10px;
+      color: #fff;
+      letter-spacing: 0.8px;
+      user-select: none;
+    }
+    .meta-info a {
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+    .meta-info a:hover {
+      text-decoration: underline;
+      color: #ddd;
+    }
+    /* Breadcrumb navigation */
+    .breadcrumbs {
+      font-size: 0.8rem;
+      margin-bottom: 25px;
+      user-select: none;
+      color: #555;
+    }
+    .breadcrumbs a {
+      color: #0366d6;
+      font-weight: 600;
+    }
+    .breadcrumbs a:hover {
+      color: #023e8a;
+    }
+    .breadcrumbs span.separator {
+      margin: 0 6px;
+      color: #999;
+    }
+    /* Article image */
+    .article-image {
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      background: #e9e9e9;
+      text-align: center;
+      line-height: 0;
+    }
+    .article-image img {
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+      max-height: 400px;
+      object-fit: cover;
+    }
+    /* Share buttons container */
+    .share-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      user-select: none;
+    }
+    .share-buttons button {
+      cursor: pointer;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      color: white;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.24);
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .share-buttons button:focus {
+      outline: 2px solid #333;
+      outline-offset: 2px;
+    }
+    /* Facebook */
+    .share-facebook {
+      background-color: #3b5998;
+    }
+    .share-facebook:hover {
+      background-color: #2d4373;
+    }
+    /* Pinterest */
+    .share-pinterest {
+      background-color: #bd081c;
+    }
+    .share-pinterest:hover {
+      background-color: #8c0615;
+    }
+    /* LinkedIn */
+    .share-linkedin {
+      background-color: #0077b5;
+    }
+    .share-linkedin:hover {
+      background-color: #004972;
+    }
+    /* Shares count text style */
+    .shares-count {
+      font-size: 0.8rem;
+      color: #333;
+      user-select: none;
+    }
+    /* Article content */
+    article {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
+      user-select: text;
+    }
+    article p {
+      margin-bottom: 14px;
+    }
+    /* Bottom share block and username */
+    .bottom-share {
+      margin-top: 40px;
+    }
+    .bottom-share .share-buttons {
+      margin-bottom: 10px;
+    }
+    .bottom-share .username {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #999;
+      user-select: none;
+    }
+    /* Responsive text scaling and layout on smaller devices */
+    @media (max-width: 600px) {
+      .header-area {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .date-block {
+        min-width: auto;
+        text-align: left;
+        margin-bottom: 8px;
+      }
+      .title-block {
+        font-size: 1.1rem;
+      }
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header-area" role="banner">
+      <div class="date-block" aria-label="Date of article">
+        <div class="day" aria-hidden="true">24</div>
+        <div class="month" aria-hidden="true">Jul</div>
+      </div>
+      <h1 class="title-block" tabindex="0">
+Mahasiswa Kimia dan Pend Kimia Raih Medali Silver dan Perunggu pada Kompetisi Internasional SEED 2025 Bidang Capstone Design      </h1>
+      
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="#" tabindex="0">Himpunan Mahasiswa Kimia FMIPA UNNES</a>
+      <span class="separator" aria-hidden="true">/</span>
+      <a href="#" tabindex="0">Berita</a>
+      <span class="separator" aria-hidden="true">/</span>
+      <span aria-current="page" style="color:#555; font-weight:600;">Mahasiswa Kimia dan Pend Kimia Raih Medali Silver dan Perunggu pada Kompetisi Internasional SEED 2025 Bidang Capstone Design.</span>
+    </nav>
+
+    <div class="article-image" role="img" aria-label="Group photo of lecturers and students involved in the collaboration agreement, with individuals wearing yellow blazers and standing inside a conference room">
+      <img src="image/berita1.jpg" alt="Large group of students and lecturers, some wearing yellow jackets, posing indoors under a banner for the collaboration event" onerror="this.style.display='none'" />
+    </div>
+
+   
+
+    <article role="main">
+  
+<p>
+    Universitas Negeri Semarang kembali menorehkan prestasi membanggakan di kancah internasional melalui ajang <strong>Sustainable Ideas through Education, Engineering, and Design (SEED)</strong> yang diselenggarakan oleh Sogang University, Korea, sebagai bagian dari Program LUPIC di Universitas Sanata Dharma. Sebanyak empat tim mahasiswa berhasil meraih penghargaan pada kompetisi bergengsi ini, membuktikan semangat inovasi dan kolaborasi lintas program studi dalam menciptakan ide-ide berkelanjutan.
+</p>
+<p></p>
+    Tiga tim dari program studi Pendidikan Kimia dan Kimia berhasil meraih <strong>Bronze Medal</strong>. Tim pertama terdiri dari Kahar Muzakir (Pendidikan Kimia 2021), Yuda Faturohman (Pendidikan Kimia 2023), dan Kholifatul Mutmainah (Pendidikan Kimia 2024) dengan bimbingan Bapak Dimas Gilang Ramadhani, M.Pd. Tim kedua beranggotakan Adityawan Chandra Pranoto (Pendidikan Kimia 2023), Ibrahim Wicaksono (Pendidikan Kimia 2022), dan Nadine Najwa (Pendidikan Kimia 2024), di bawah bimbingan Ibu Prof. Woro Sumarni. Tim ketiga berasal dari program studi Kimia, yaitu Ardha Hafiidh Friansyah dan Siti Nur Waesah (keduanya dari angkatan 2023), yang dibimbing oleh Bapak Harjito.
+</p>
+<p>
+    Sementara itu, satu tim lainnya berhasil meraih <strong>Silver Medal</strong>, terdiri dari Ivan Adi Prasetyo dan Fitra Ahmad Rifa’i (Kimia 2022), serta Oktania Lutfira (Seni Rupa 2022). Tim ini dibimbing oleh Bapak Cepi Kurniawan, Ph.D., dan menunjukkan kekuatan kolaborasi antarbidang ilmu dalam menyusun solusi kreatif dan berkelanjutan.
+</p>
+<p>
+    Prestasi ini tidak hanya menjadi kebanggaan bagi sivitas akademika UNNES, tetapi juga menjadi bukti bahwa mahasiswa memiliki potensi besar dalam memberikan kontribusi nyata bagi pembangunan berkelanjutan melalui pendekatan edukatif, rekayasa, dan desain. Selamat kepada seluruh tim dan dosen pembimbing atas pencapaian gemilang ini!
+</p>
+
+    </article>
+
+      <section class="flex justify-end mb-8">
+      <a href="index.html" class="highlight-yellow text-[#FAF9EE] font-bold px-2 py-1 rounded text-sm md:text-base hover:underline whitespace-nowrap">
+        Kembali ke Beranda
+      </a>
+    </section>
+
+  </div>
+</body>
+</html>
+
